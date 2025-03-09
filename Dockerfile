@@ -26,9 +26,6 @@ COPY --from=frontend-build /app/dist /app/frontend
 # Go のバイナリをコピー
 COPY --from=backend-build /app/app /app/backend/app
 
-# ポートを開放
-EXPOSE 8080 3000
-
 # バックエンド & フロントエンドの並列起動（pm2 を使用）
 CMD ["pm2-runtime", "start", "--name", "backend", "--", "/app/backend/app"]
 
