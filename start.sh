@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Heroku の環境変数 `$PORT` を使用（デフォルト 8080）
 BACKEND_PORT=${PORT:-8080}
@@ -10,4 +10,6 @@ echo "Starting Backend on port $BACKEND_PORT..."
 echo "Starting Frontend on port $FRONTEND_PORT..."
 npx serve -s /app/frontend -l $FRONTEND_PORT &
 
-wait -n  # どちらかのプロセスが終了したらスクリプトを終了
+# どちらかのプロセスが終了したらスクリプトを終了
+wait
+
