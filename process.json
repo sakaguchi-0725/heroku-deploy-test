@@ -9,6 +9,7 @@
   {
     "name": "frontend",
     "script": "serve",
-    "args": "-s /app/frontend -l 3000"
+    "args": ["-s", "/app/frontend", "-l", "3000"]
   }
 ]
+

@@ -18,7 +18,7 @@ WORKDIR /app
 RUN apk --no-cache add ca-certificates nodejs npm gcompat
 
 # pm2 でプロセス管理
-RUN npm install -g pm2
+RUN npm install -g pm2 serve
 
 # Vue のビルド成果物をコピー
 COPY --from=frontend-build /app/dist /app/frontend
@@ -26,10 +26,12 @@ COPY --from=frontend-build /app/dist /app/frontend
 # Go のバイナリをコピー
 COPY --from=backend-build /app/app /app/backend/app
 
-COPY process.json /app/processes.json
+# `processes.json` をコンテナにコピー
+COPY processes.json /app/processes.json
 
-# バックエンド & フロントエンドの並列起動（環境変数を正しく適用）
-CMD ["sh", "-c", "PORT=${PORT:-8080} pm2-runtime start /app/processes.json"]
+# バックエンド & フロントエンドの並列起動
+CMD ["sh", "-c", "PORT=${PORT:-8080} FRONTEND_PORT=3000 pm2-runtime start /app/processes.json"]
+
 
 
 
