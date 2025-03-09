@@ -26,9 +26,6 @@ COPY --from=frontend-build /app/dist /app/frontend
 # Go のバイナリをコピー
 COPY --from=backend-build /app/app /app/backend/app
 
-# nginx の設定をコピー
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
 # ポートを開放
 EXPOSE 8080 3000
 
