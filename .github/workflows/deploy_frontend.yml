@@ -14,8 +14,8 @@ jobs:
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh 
 
-      - name: Build Docker Image
-        run: docker build -t heroku-deploy-test .
+      # - name: Build Docker Image
+      #   run: docker build -t heroku-deploy-test .
 
       - uses: akhileshns/heroku-deploy@v3.14.15
         with:
