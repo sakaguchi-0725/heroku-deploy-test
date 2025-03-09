@@ -3,9 +3,12 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/labstack/echo/v4"
 )
+
+var port = os.Getenv("PORT")
 
 func main() {
 	e := echo.New()
@@ -14,5 +17,5 @@ func main() {
 		return c.JSON(http.StatusOK, map[string]string{"message": "Hello, World!"})
 	})
 
-	log.Fatal(e.Start(":8080"))
+	log.Fatal(e.Start(port))
 }

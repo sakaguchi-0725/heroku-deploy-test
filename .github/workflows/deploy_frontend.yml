@@ -24,7 +24,4 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           dontautocreate: true
           usedocker: true
-
-      - name: Check Heroku Logs
-        run: heroku logs --tail --app ${{secrets.HEROKU_APP_NAME}}
     
