@@ -19,7 +19,7 @@ func main() {
 
 	addr := fmt.Sprintf(":%s", port)
 
-	e.GET("/", func(c echo.Context) error {
+	e.GET("/api", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]string{"message": "Hello, World!"})
 	})
 
