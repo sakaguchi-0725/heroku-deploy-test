@@ -11,14 +11,14 @@ COPY backend ./
 RUN go mod tidy && go build -o app
 
 # 実行環境
-FROM alpine:latest
+FROM ubuntu:latest
 WORKDIR /app
 
-# 必要なツールをインストール
-RUN apk --no-cache add ca-certificates nodejs npm gcompat
+# 必要なツールをインストール（Heroku の環境向け）
+RUN apt-get update && apt-get install -y ca-certificates nodejs npm
 
-# pm2 でプロセス管理
-RUN npm install -g pm2 serve
+# Vue の静的ファイルを配信する `serve` をインストール
+RUN npm install -g serve
 
 # Vue のビルド成果物をコピー
 COPY --from=frontend-build /app/dist /app/frontend
@@ -26,11 +26,13 @@ COPY --from=frontend-build /app/dist /app/frontend
 # Go のバイナリをコピー
 COPY --from=backend-build /app/app /app/backend/app
 
-# `processes.json` をコンテナにコピー
-COPY processes.json /app/processes.json
+# 起動スクリプトをコピー
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh  # 実行権限を付与
 
-# バックエンド & フロントエンドの並列起動
-CMD ["sh", "-c", "PORT=${PORT:-8080} FRONTEND_PORT=3000 pm2-runtime start /app/processes.json"]
+# `start.sh` を使ってバックエンド & フロントエンドを並列起動
+CMD ["/app/start.sh"]
+
 
 
 
