@@ -26,8 +26,10 @@ COPY --from=frontend-build /app/dist /app/frontend
 # Go のバイナリをコピー
 COPY --from=backend-build /app/app /app/backend/app
 
-# バックエンド & フロントエンドの並列起動（pm2 を使用）
-CMD ["pm2-runtime", "start", "--name", "backend", "--", "/app/backend/app"]
+COPY process.json /app/processes.json
+
+# バックエンド & フロントエンドの並列起動（環境変数を正しく適用）
+CMD ["sh", "-c", "PORT=${PORT:-8080} pm2-runtime start /app/processes.json"]
 
 
 

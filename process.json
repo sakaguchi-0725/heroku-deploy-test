@@ -1,0 +1,14 @@
+[
+  {
+    "name": "backend",
+    "script": "/app/backend/app",
+    "env": {
+      "PORT": "${PORT}"
+    }
+  },
+  {
+    "name": "frontend",
+    "script": "serve",
+    "args": "-s /app/frontend -l 3000"
+  }
+]
