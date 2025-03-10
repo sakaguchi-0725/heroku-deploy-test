@@ -9,15 +9,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+      
       - name: Install Heroku CLI
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh 
 
-      # - name: Build Docker Image
-      #   run: docker build -t heroku-deploy-test .
+      - name: Go setup
+        uses: actions/setup-go@v4
+        with:
+          go-version: ./backend/go.mod
+          cache-dependency-path: ./backend/go.sum
+      
+      - name: Go build
+        run: go build -o ./backend/bin/main ./backend/main.go
 
-      - uses: akhileshns/heroku-deploy@v3.14.15
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.14.15
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
