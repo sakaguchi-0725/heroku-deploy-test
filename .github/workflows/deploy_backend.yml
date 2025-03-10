@@ -22,8 +22,8 @@ jobs:
       - name: Go setup
         uses: actions/setup-go@v4
         with:
-          go-version: ./backend/go.mod
-          cache-dependency-path: ./backend/go.sum
+          go-version: ./go.mod
+          cache-dependency-path: ./go.sum
       
       - name: Go build
         run: go build -o ./backend/bin/main ./backend/main.go
