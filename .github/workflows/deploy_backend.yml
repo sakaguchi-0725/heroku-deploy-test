@@ -23,7 +23,7 @@ jobs:
           curl https://cli-assets.heroku.com/install.sh | sh 
 
       - name: Go setup
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: go.mod
           cache-dependency-path: go.sum
