@@ -31,7 +31,7 @@ jobs:
           cache-dependency-path: ./backend/go.sum
       
       - name: Go build
-        run: go build -o ./backend/bin/main ./backend/main.go
+        run: go build -o ./bin/main ./main.go
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.14.15
